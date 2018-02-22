@@ -68,7 +68,7 @@ boolean titleScreen()
   ab.clear();
   ab.setCursor(16,22);
   ab.setTextSize(2);
-  ab.print("Galaga but not really");
+  ab.print("GALAGA?");
   ab.setTextSize(1);
   ab.display();
   if (pollFireButton(25))
