@@ -16,6 +16,22 @@ int scroll = 0;
 int pad;
 int oldpad,oldpad3;
 
+int firePressed = 0;
+
+int proj1_x = 0;
+int proj1_y = 0;
+int proj1_v = 0;
+
+int proj2_x = 0;
+int proj2_y = 0;
+int proj2_v = 0;
+
+int proj3_x = 0;
+int proj3_y = 0;
+int proj3_v = 0;
+
+int proj_count = 1;
+
 void setup() {
   // put your setup code here, to run once:
   ab.begin();
@@ -47,6 +63,9 @@ void loop() {
   }
   ab.fillRect(playerx,playery,17,17,BLACK);
   ab.drawBitmap(playerx,playery,player,17,17,WHITE);
+  if(proj1_v) ab.drawRect(proj1_x, proj1_y, 5, 2);
+  if(proj2_v) ab.drawRect(proj2_x, proj2_y, 5, 2);
+  if(proj3_v) ab.drawRect(proj3_x, proj3_y, 5, 2);
   
   // Move Player Sprite
   if (ab.pressed(LEFT_BUTTON)) playerx--;
@@ -54,13 +73,45 @@ void loop() {
   if (ab.pressed(UP_BUTTON)) playery--;
   if (ab.pressed(DOWN_BUTTON)) playery++;
 
+  if((ab.pressed(A_BUTTON) || ab.pressed(B_BUTTON)) && !firePressed){
+    firePressed = 1;
+    if(proj_count == 1){
+      proj1_v = 2;
+      proj1_x = playerx + 8;
+      proj1_y = playery + 8;
+      proj_count += 1;
+    }
+    else if(proj_count == 2){
+      proj2_v = 2;
+      proj2_x = playerx + 8;
+      proj2_y = playery + 8;
+      proj_count += 1;
+    }
+    else if(proj_count == 3){
+      proj3_v = 2;
+      proj3_x = playerx + 8;
+      proj3_y = playery + 8;
+      proj_count = 1;
+    }
+  }
+
+  if(proj1_v) proj1_x += proj1_v;
+  if(proj2_v) proj2_x += proj2_v;
+  if(proj3_v) proj3_x += proj3_v;
+
   // Collision Detection With Edge of Screen
   if (playerx < 0) playerx=0;
   if (playerx > 111) playerx = 111;
   if (playery < 0) playery = 0;
   if (playery > 47) playery = 47;
 
+  if(proj1_x > 126) proj1_v = 0;
+  if(proj2_x > 126) proj2_v = 0;
+  if(proj3_x > 126) proj3_v = 0;
+
   ab.display();
+
+  if(ab.notPressed(A_BUTTON) && ab.notPressed(B_BUTTON)) firePressed = 0;
 }
 boolean titleScreen()
 {
