@@ -2,35 +2,73 @@
 
 Arduboy2 ab;
 
+// background sprite
 const unsigned char background[] PROGMEM = {
   0x00, 0x00, 0x6, 0x4, 0x00, 0x00, 0x00, 0x40, 0x60, 0x00, 0x2, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x38, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x6, 0x6, 0x00, 0x00, 0x00, 0x00,
 };
 
+// player sprite
 const unsigned char player [] PROGMEM = {
   0x00, 0x2, 0x26, 0xae, 0xfe, 0xfa, 0xf2, 0x72, 0x52, 0xd0, 0xd0, 0x90, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x81, 0xc9, 0xeb, 0xff, 0xbf, 0x9f, 0x9d, 0x94, 0x16, 0x17, 0x13, 0x3, 0x1, 0x1, 0x1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
-boolean start = false;
+
+// enemy sprite
+const unsigned char enemy [] PROGMEM = {
+  0x00, 0x2, 0x4, 0x88, 0x70, 0x8c, 0x70, 0xf8, 0x88, 0x88, 0x88, 0x00, 0x2, 0x1, 0x00, 0x00, 0x1, 0x00, 0x00, 0x00, 0x00, 0x00,
+};
+
+boolean start = false; // boolean to show title screen
+
+int scroll = 0; // background scroll counter
+int pad,oldpad,oldpad3; // pollFireButton buffer
+int proj_count = 1; // next projectile counter
+int enemy_count = 1; // next enemy counter
+int enemy_timer = 10; // timer between enemy spawns
+
+// player variables
 int playerx = 5;
 int playery = 10;
-int scroll = 0;
-int pad;
-int oldpad,oldpad3;
-
 int firePressed = 0;
 
+// projectile 1
 int proj1_x = 0;
 int proj1_y = 0;
 int proj1_v = 0;
 
+// projectile 2
 int proj2_x = 0;
 int proj2_y = 0;
 int proj2_v = 0;
 
+// projectile 3
 int proj3_x = 0;
 int proj3_y = 0;
 int proj3_v = 0;
 
-int proj_count = 1;
+// enemy 1
+int enemy1_x = 200;
+int enemy1_y = 200;
+int enemy1_v = 0;
+
+// enemy 2
+int enemy2_x = 200;
+int enemy2_y = 200;
+int enemy2_v = 0;
+
+// enemy 3
+int enemy3_x = 200;
+int enemy3_y = 200;
+int enemy3_v = 0;
+
+// enemy 4
+int enemy4_x = 200;
+int enemy4_y = 200;
+int enemy4_v = 0;
+
+// enemy 5
+int enemy5_x = 200;
+int enemy5_y = 200;
+int enemy5_v = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -41,10 +79,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  
   // Pause Renderer Between Frames
   if (!ab.nextFrame()) return;
   
   ab.clear();
+
+  // Load Start Screen and Wait for Keypress
   while(!start)
   {
     start =titleScreen();
@@ -54,18 +95,51 @@ void loop() {
     }*/
   
   }
-  // Draw Sprites
+
+  // Scroll Background
   scroll = (scroll+1)%16;
+
+/* ========== Draw Sprites ========== */
+
+  // Draw Background Tiles
   for (int bgx = 16-scroll; bgx<128; bgx += 16) {
     for (int bgy = 0; bgy < 64; bgy += 16) {
       ab.drawBitmap(bgx,bgy,background, 8, 8, WHITE);
     }
   }
+
+  // Draw Player
   ab.fillRect(playerx,playery,17,17,BLACK);
   ab.drawBitmap(playerx,playery,player,17,17,WHITE);
+  
+  // Draw Projectiles
   if(proj1_v) ab.drawRect(proj1_x, proj1_y, 5, 2);
   if(proj2_v) ab.drawRect(proj2_x, proj2_y, 5, 2);
   if(proj3_v) ab.drawRect(proj3_x, proj3_y, 5, 2);
+
+  // Draw Enemies
+  if (enemy1_v) {
+    ab.fillRect(enemy1_x, enemy1_y, 11, 11, BLACK);
+    ab.drawBitmap(enemy1_x, enemy1_y, enemy, 11, 11, WHITE);
+  }
+  if (enemy2_v) {
+    ab.fillRect(enemy2_x, enemy2_y, 11, 11, BLACK);
+    ab.drawBitmap(enemy2_x, enemy2_y, enemy, 11, 11, WHITE);
+  }
+  if (enemy3_v) {
+    ab.fillRect(enemy3_x, enemy3_y, 11, 11, BLACK);
+    ab.drawBitmap(enemy3_x, enemy3_y, enemy, 11, 11, WHITE);
+  }
+  if (enemy4_v) {
+    ab.fillRect(enemy4_x, enemy4_y, 11, 11, BLACK);
+    ab.drawBitmap(enemy4_x, enemy4_y, enemy, 11, 11, WHITE);
+  }
+  if (enemy5_v) {
+    ab.fillRect(enemy5_x, enemy5_y, 11, 11, BLACK);
+    ab.drawBitmap(enemy5_x, enemy5_y, enemy, 11, 11, WHITE);
+  }
+
+  /* ========== Player Inputs ========== */
   
   // Move Player Sprite
   if (ab.pressed(LEFT_BUTTON)) playerx--;
@@ -73,6 +147,7 @@ void loop() {
   if (ab.pressed(UP_BUTTON)) playery--;
   if (ab.pressed(DOWN_BUTTON)) playery++;
 
+  // Fire Projectiles
   if((ab.pressed(A_BUTTON) || ab.pressed(B_BUTTON)) && !firePressed){
     firePressed = 1;
     if(proj_count == 1){
@@ -95,9 +170,63 @@ void loop() {
     }
   }
 
-  if(proj1_v) proj1_x += proj1_v;
-  if(proj2_v) proj2_x += proj2_v;
-  if(proj3_v) proj3_x += proj3_v;
+/* ========== Move Other Sprites ========== */
+
+  // Move Projectiles
+  proj1_x += proj1_v;
+  proj2_x += proj2_v;
+  proj3_x += proj3_v;
+
+  // Render New Enemies
+  enemy_timer+= 1; // Increment Frame Counter Between Enemy Spawns
+  if (enemy_timer == 30) {
+    enemy_timer = 0;
+    if (enemy_count == 1) {
+      enemy_count += 1;
+      enemy1_v = 1;
+      enemy1_y = random(1,53);
+      enemy1_x = 120;
+    }
+    else if (enemy_count == 2) {
+      enemy_count += 1;
+      enemy2_v = 1;
+      enemy2_y = random(1,53);
+      enemy2_x = 120;
+    }
+    else if (enemy_count == 3) {
+      enemy_count += 1;
+      enemy3_v = 1;
+      enemy3_y = random(1,53);
+      enemy3_x = 120;
+    }
+    else if (enemy_count == 4) {
+      enemy_count += 1;
+      enemy4_v = 1;
+      enemy4_y = random(1,53);
+      enemy4_x = 120;
+    }
+    else if (enemy_count == 1) {
+      enemy_count += 1;
+      enemy1_v = 1;
+      enemy1_y = random(1,53);
+      enemy1_x = 120;
+    }
+    else if (enemy_count == 5) {
+      enemy_count = 1;
+      enemy5_v = 1;
+      enemy5_y = random(1,53);
+      enemy5_x = 120;
+    }
+  }
+
+  // Move Enemies
+  enemy1_x -= enemy1_v;
+  enemy2_x -= enemy2_v;
+  enemy3_x -= enemy3_v;
+  enemy4_x -= enemy4_v;
+  enemy5_x -= enemy5_v;
+
+/* ========== Collision Detection ========== */
 
   // Collision Detection With Edge of Screen
   if (playerx < 0) playerx=0;
@@ -105,17 +234,46 @@ void loop() {
   if (playery < 0) playery = 0;
   if (playery > 47) playery = 47;
 
+  // Projectile Collision With Right Edge Screen
   if(proj1_x > 126) proj1_v = 0;
   if(proj2_x > 126) proj2_v = 0;
   if(proj3_x > 126) proj3_v = 0;
 
+  // Enemy Collision With Left Edge of Screen
+  if (enemy1_x < -10) {
+    enemy1_x = 200;
+    enemy1_y = 200;
+    enemy1_v = 0; 
+  }
+  if (enemy2_x < -10) {
+    enemy2_x = 200;
+    enemy2_y = 200;
+    enemy2_v = 0; 
+  }
+  if (enemy3_x < -10) {
+    enemy3_x = 200;
+    enemy3_y = 200;
+    enemy3_v = 0; 
+  }
+  if (enemy4_x < -10) {
+    enemy4_x = 200;
+    enemy4_y = 200;
+    enemy4_v = 0; 
+  }
+  if (enemy5_x < -10) {
+    enemy5_x = 200;
+    enemy5_y = 200;
+    enemy5_v = 0; 
+  }
+
   ab.display();
 
+  // Clear Fire Button Buffer
   if(ab.notPressed(A_BUTTON) && ab.notPressed(B_BUTTON)) firePressed = 0;
 }
+
 boolean titleScreen()
 {
-  //Clears the screen
   ab.clear();
   ab.setCursor(16,22);
   ab.setTextSize(2);
@@ -127,7 +285,7 @@ boolean titleScreen()
     return true;
   }
 
-  //Flash "Press FIRE" 5 times
+  // Flash "Press FIRE" 5 times
   for(byte i = 0; i < 5; i++)
   {
     //Draws "Press FIRE"
