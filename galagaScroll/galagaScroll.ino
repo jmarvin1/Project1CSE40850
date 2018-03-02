@@ -1,6 +1,8 @@
 #include <Arduboy2.h>
+#include <ArduboyTones.h>
 
 Arduboy2 ab;
+ArduboyTones sound(ab.audio.enabled);
 
 // background sprite
 const unsigned char background[] PROGMEM = {
@@ -70,6 +72,70 @@ int enemy5_x = 200;
 int enemy5_y = 200;
 int enemy5_v = 0;
 
+uint16_t b_music[] = {
+  NOTE_A5, 200, NOTE_F5, 200, NOTE_A5, 200, NOTE_F5, 200,
+  NOTE_D5, 200, NOTE_AS4, 200, NOTE_C5, 200, NOTE_G4, 200,
+  NOTE_A5, 200, NOTE_G5, 200, NOTE_A5, 200, NOTE_D5, 200, 
+  NOTE_E5, 200, NOTE_G4, 200, NOTE_E4, 200, NOTE_A4, 200,
+  NOTE_C5, 200, NOTE_G4, 200, NOTE_E4, 200, NOTE_G4, 200,
+  NOTE_G5, 200, NOTE_C5, 200, NOTE_G4, 200, NOTE_C5, 200,
+  NOTE_A5, 200, NOTE_F5, 200, NOTE_A5, 200, NOTE_F5, 200,
+  NOTE_C5, 200, NOTE_A4, 200, NOTE_F4, 200, NOTE_C5, 200,
+  NOTE_A5, 200, NOTE_F5, 200, NOTE_A5, 200, NOTE_F5, 200,
+  NOTE_C5, 200, NOTE_A4, 200, NOTE_F4, 200, NOTE_A4, 200,
+  NOTE_AS4, 200, NOTE_G4, 200, NOTE_AS4, 200, NOTE_F4, 200,
+  NOTE_AS4, 200, NOTE_G4, 200, NOTE_C5, 200, NOTE_A4, 200,
+  NOTE_F5, 200, NOTE_E5, 200, NOTE_F5, 200, NOTE_E5, 200,
+  NOTE_AS4, 200, NOTE_A4, 200, NOTE_AS4, 200, NOTE_A4, 200,
+  NOTE_AS5, 200, NOTE_A5, 200, NOTE_G5, 200, NOTE_AS5, 200,
+  NOTE_D6, 200, NOTE_C6, 200, NOTE_AS5, 200, NOTE_A5, 200,
+  NOTE_G5, 200, NOTE_AS5, 200, NOTE_F5, 200, NOTE_A5, 200,
+  NOTE_G5, 200, NOTE_E5, 200, NOTE_C5, 200, NOTE_G5, 200,
+  NOTE_A5, 200, NOTE_F5, 200, NOTE_A5, 200, NOTE_F5, 200,
+  NOTE_A5, 200, NOTE_F5, 200, NOTE_A5, 200, NOTE_F5, 200,
+  TONES_REPEAT
+};
+
+uint16_t g_music[] = {
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_D4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_E4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_D5, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_E5, 100, NOTE_G4, 100, NOTE_FS5, 100, NOTE_G4, 100,
+  NOTE_B5, 100, NOTE_A4, 100, NOTE_FS5, 100, NOTE_FS4, 100,
+  NOTE_CS5, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_D5, 100, NOTE_G4, 100, NOTE_E5, 100, NOTE_G4, 100,
+  NOTE_D4, 100, NOTE_A4, 100, NOTE_CS5, 100, NOTE_FS4, 100,
+  NOTE_D5, 100, NOTE_G4, 100, NOTE_E5, 100, NOTE_G4, 100,
+  NOTE_FS5, 100, NOTE_A4, 100, NOTE_G5, 100, NOTE_FS4, 100,
+  NOTE_A5, 100, NOTE_G4, 100, NOTE_G5, 100, NOTE_G4, 100,
+  NOTE_FS5, 100, NOTE_A4, 100, NOTE_E5, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  NOTE_A4, 100, NOTE_G4, 100, NOTE_A4, 100, NOTE_G4, 100,
+  NOTE_B4, 100, NOTE_A4, 100, NOTE_G4, 100, NOTE_FS4, 100,
+  TONES_REPEAT
+};
+
 void setup() {
   // put your setup code here, to run once:
   ab.begin();
@@ -79,6 +145,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+
+  ab.audio.on();
   
   // Pause Renderer Between Frames
   if (!ab.nextFrame()) return;
@@ -88,14 +156,20 @@ void loop() {
   // Load Start Screen and Wait for Keypress
   while(!start)
   {
-    start =titleScreen();
+    // Title Screen Music
+    if(!sound.playing()) sound.tonesInRAM(b_music);
+    start = titleScreen();
 /*    if (!start)
     {
       start = displayHighScores(EE_FILE);
     }*/
   
   }
-
+  
+  sound.volumeMode(VOLUME_ALWAYS_NORMAL);
+  // Play Game Music
+  if(!sound.playing()) sound.tonesInRAM(g_music);
+  
   // Scroll Background
   scroll = (scroll+1)%16;
 
@@ -305,6 +379,7 @@ boolean titleScreen()
 
     if (pollFireButton(25))
     {
+      sound.noTone();
       return true;
     }
   }
