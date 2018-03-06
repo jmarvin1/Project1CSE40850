@@ -340,6 +340,49 @@ void loop() {
     enemy5_v = 0; 
   }
 
+  //player collisions with enemy
+  if(enemy1_x < playerx + 17 && playerx < enemy1_x + 10)
+  {
+    //he ded
+  }
+  if(enemy1_y < playery + 17 && playery < enemy1_y + 10)
+  {
+     
+  }
+  if(enemy2_x < playerx + 17 && playerx < enemy2_x + 10)
+  {
+    //he ded
+  }
+  if(enemy2_y < playery + 17 && playery < enemy2_y + 10)
+  {
+     
+  }
+  if(enemy3_x < playerx + 17 && playerx < enemy3_x + 10)
+  {
+    //he ded
+  }
+  if(enemy3_y < playery + 17 && playery < enemy3_y + 10)
+  {
+     
+  }
+  if(enemy4_x < playerx + 17 && playerx < enemy4_x + 10)
+  {
+    //he ded
+  }
+  if(enemy4_y < playery + 17 && playery < enemy4_y + 10)
+  {
+     
+  }
+  if(enemy5_x < playerx + 17 && playerx < enemy5_x + 10)
+  {
+    //he ded
+  }
+  if(enemy5_y < playery + 17 && playery < enemy5_y + 10)
+  {
+     
+  }
+  
+
   ab.display();
 
   // Clear Fire Button Buffer
