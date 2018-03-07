@@ -377,6 +377,126 @@ void loop() {
     }
   }
   
+/*-----------Projectile with enemy detection---------------*/
+  if(enemy5_x < proj1_x + 5 && proj1_x < enemy5_x + 10)
+  {
+    if(enemy5_y < proj1_y + 2 && proj1_y < enemy5_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy4_x < proj1_x + 5 && proj1_x < enemy4_x + 10)
+  {
+    if(enemy4_y < proj1_y + 2 && proj1_y < enemy4_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy3_x < proj1_x + 5 && proj1_x < enemy3_x + 10)
+  {
+    if(enemy3_y < proj1_y + 2 && proj1_y < enemy3_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy2_x < proj1_x + 5 && proj1_x < enemy2_x + 10)
+  {
+    if(enemy2_y < proj1_y + 2 && proj1_y < enemy2_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy1_x < proj1_x + 5 && proj1_x < enemy1_x + 10)
+  {
+    if(enemy1_y < proj1_y + 2 && proj1_y < enemy1_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy5_x < proj2_x + 5 && proj2_x < enemy5_x + 10)
+  {
+    if(enemy5_y < proj2_y + 2 && proj2_y < enemy5_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy4_x < proj2_x + 5 && proj2_x < enemy4_x + 10)
+  {
+    if(enemy4_y < proj2_y + 2 && proj2_y < enemy4_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy3_x < proj2_x + 5 && proj2_x < enemy3_x + 10)
+  {
+    if(enemy3_y < proj2_y + 2 && proj2_y < enemy3_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy2_x < proj2_x + 5 && proj2_x < enemy2_x + 10)
+  {
+    if(enemy2_y < proj2_y + 2 && proj2_y < enemy2_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy1_x < proj2_x + 5 && proj2_x < enemy1_x + 10)
+  {
+    if(enemy1_y < proj2_y + 2 && proj2_y < enemy1_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy1_x < proj3_x + 5 && proj3_x < enemy1_x + 10)
+  {
+    if(enemy1_y < proj3_y + 2 && proj3_y < enemy1_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy2_x < proj3_x + 5 && proj3_x < enemy2_x + 10)
+  {
+    if(enemy2_y < proj3_y + 2 && proj3_y < enemy2_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy3_x < proj3_x + 5 && proj3_x < enemy3_x + 10)
+  {
+    if(enemy3_y < proj3_y + 2 && proj3_y < enemy3_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy4_x < proj3_x + 5 && proj3_x < enemy4_x + 10)
+  {
+    if(enemy4_y < proj3_y + 2 && proj3_y < enemy4_y + 10)
+    {
+      //he ded  
+    }
+  }
+ if(enemy5_x < proj3_x + 5 && proj3_x < enemy5_x + 10)
+  {
+    if(enemy5_y < proj3_y + 2 && proj3_y < enemy5_y + 10)
+    {
+      //he ded  
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ab.display();
 
