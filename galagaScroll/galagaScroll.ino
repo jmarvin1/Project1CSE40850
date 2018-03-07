@@ -26,6 +26,7 @@ int pad,oldpad,oldpad3; // pollFireButton buffer
 int proj_count = 1; // next projectile counter
 int enemy_count = 1; // next enemy counter
 int enemy_timer = 10; // timer between enemy spawns
+int score;
 
 // player variables
 int playerx = 5;
@@ -141,6 +142,7 @@ void setup() {
   ab.begin();
   ab.clear();
   ab.setFrameRate(60);
+  score=0;
 }
 
 void loop() {
@@ -159,11 +161,11 @@ void loop() {
     // Title Screen Music
     if(!sound.playing()) sound.tonesInRAM(b_music);
     start = titleScreen();
-/*    if (!start)
-    {
-      start = displayHighScores(EE_FILE);
-    }*/
-  
+    if(start)
+     {
+         sound.noTone();
+         score=0;
+     }
   }
   
   sound.volumeMode(VOLUME_ALWAYS_NORMAL);
@@ -383,7 +385,8 @@ void loop() {
     if(enemy5_y < proj1_y + 2 && proj1_y < enemy5_y + 10)
     {
       enemy5_x = -11;
-      proj1_x = 127; 
+      proj1_x = 127;
+      score++; 
     }
   }
  if(enemy4_x < proj1_x + 5 && proj1_x < enemy4_x + 10)
@@ -391,7 +394,8 @@ void loop() {
     if(enemy4_y < proj1_y + 2 && proj1_y < enemy4_y + 10)
     {
       enemy4_x = -11;
-      proj1_x = 127;  
+      proj1_x = 127;
+      score++;  
     }
   }
  if(enemy3_x < proj1_x + 5 && proj1_x < enemy3_x + 10)
@@ -399,7 +403,8 @@ void loop() {
     if(enemy3_y < proj1_y + 2 && proj1_y < enemy3_y + 10)
     {
       enemy3_x = -11;
-      proj1_x = 127;  
+      proj1_x = 127;
+      score++;  
     }
   }
  if(enemy2_x < proj1_x + 5 && proj1_x < enemy2_x + 10)
@@ -407,7 +412,8 @@ void loop() {
     if(enemy2_y < proj1_y + 2 && proj1_y < enemy2_y + 10)
     {
       enemy2_x = -11;
-      proj1_x = 127;  
+      proj1_x = 127;
+      score++;  
     }
   }
  if(enemy1_x < proj1_x + 5 && proj1_x < enemy1_x + 10)
@@ -415,7 +421,8 @@ void loop() {
     if(enemy1_y < proj1_y + 2 && proj1_y < enemy1_y + 10)
     {
       enemy1_x = -11;
-      proj1_x = 127;  
+      proj1_x = 127;
+      score++;  
     }
   }
  if(enemy5_x < proj2_x + 5 && proj2_x < enemy5_x + 10)
@@ -423,7 +430,8 @@ void loop() {
     if(enemy5_y < proj2_y + 2 && proj2_y < enemy5_y + 10)
     {
       enemy5_x = -11;
-      proj2_x = 127;  
+      proj2_x = 127;
+      score++;  
     }
   }
  if(enemy4_x < proj2_x + 5 && proj2_x < enemy4_x + 10)
@@ -431,7 +439,8 @@ void loop() {
     if(enemy4_y < proj2_y + 2 && proj2_y < enemy4_y + 10)
     {
       enemy4_x = -11;
-      proj2_x = 127;  
+      proj2_x = 127;
+      score++;  
     }
   }
  if(enemy3_x < proj2_x + 5 && proj2_x < enemy3_x + 10)
@@ -439,7 +448,8 @@ void loop() {
     if(enemy3_y < proj2_y + 2 && proj2_y < enemy3_y + 10)
     {
       enemy3_x = -11;
-      proj2_x = 127;  
+      proj2_x = 127;
+      score++;  
     }
   }
  if(enemy2_x < proj2_x + 5 && proj2_x < enemy2_x + 10)
@@ -447,7 +457,8 @@ void loop() {
     if(enemy2_y < proj2_y + 2 && proj2_y < enemy2_y + 10)
     {
       enemy2_x = -11;
-      proj2_x = 127;  
+      proj2_x = 127;
+      score++;  
     }
   }
  if(enemy1_x < proj2_x + 5 && proj2_x < enemy1_x + 10)
@@ -455,7 +466,8 @@ void loop() {
     if(enemy1_y < proj2_y + 2 && proj2_y < enemy1_y + 10)
     {
       enemy1_x = -11;
-      proj2_x = 127;  
+      proj2_x = 127;
+      score++;  
     }
   }
  if(enemy1_x < proj3_x + 5 && proj3_x < enemy1_x + 10)
@@ -463,7 +475,8 @@ void loop() {
     if(enemy1_y < proj3_y + 2 && proj3_y < enemy1_y + 10)
     {
       enemy1_x = -11;
-      proj3_x = 127;  
+      proj3_x = 127;
+      score++;  
     }
   }
  if(enemy2_x < proj3_x + 5 && proj3_x < enemy2_x + 10)
@@ -471,7 +484,8 @@ void loop() {
     if(enemy2_y < proj3_y + 2 && proj3_y < enemy2_y + 10)
     {
       enemy2_x = -11;
-      proj3_x = 127;   
+      proj3_x = 127;
+      score++;   
     }
   }
  if(enemy3_x < proj3_x + 5 && proj3_x < enemy3_x + 10)
@@ -479,7 +493,8 @@ void loop() {
     if(enemy3_y < proj3_y + 2 && proj3_y < enemy3_y + 10)
     {
       enemy3_x = -11;
-      proj3_x = 127;   
+      proj3_x = 127;
+      score++;   
     }
   }
  if(enemy4_x < proj3_x + 5 && proj3_x < enemy4_x + 10)
@@ -487,7 +502,8 @@ void loop() {
     if(enemy4_y < proj3_y + 2 && proj3_y < enemy4_y + 10)
     {
       enemy4_x = -11;
-      proj3_x = 127;  
+      proj3_x = 127;
+      score++;  
     }
   }
  if(enemy5_x < proj3_x + 5 && proj3_x < enemy5_x + 10)
@@ -495,7 +511,8 @@ void loop() {
     if(enemy5_y < proj3_y + 2 && proj3_y < enemy5_y + 10)
     {
       enemy5_x = -11;
-      proj3_x = 127;  
+      proj3_x = 127;
+      score++;  
     }
   }
 
@@ -512,6 +529,11 @@ boolean titleScreen()
   ab.setTextSize(2);
   ab.print("GALAGA?");
   ab.setTextSize(1);
+  if(score!=0)
+  {
+      ab.setCursor(50,20);
+      ab.print("Last Score: ",score);
+  }
   ab.display();
   if (pollFireButton(25))
   {
