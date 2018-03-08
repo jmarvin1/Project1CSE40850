@@ -165,6 +165,43 @@ void loop() {
      {
          sound.noTone();
          score=0;
+         scroll = 0;
+         // player variables
+         playerx = 5;
+         playery = 10;
+         firePressed = 0;
+         // projectile 1
+         proj1_x = 0;
+         proj1_y = 0;
+         proj1_v = 0;
+         // projectile 2
+         proj2_x = 0;
+         proj2_y = 0;
+         proj2_v = 0;
+         // projectile 3
+         proj3_x = 0;
+         proj3_y = 0;
+         proj3_v = 0;
+         // enemy 1
+         enemy1_x = 200;
+         enemy1_y = 200;
+         enemy1_v = 0;
+         // enemy 2
+         enemy2_x = 200;
+         enemy2_y = 200;
+         enemy2_v = 0;
+         // enemy 3
+         enemy3_x = 200;
+         enemy3_y = 200;
+         enemy3_v = 0;
+         // enemy 4
+         enemy4_x = 200;
+         enemy4_y = 200;
+         enemy4_v = 0;
+         // enemy 5
+         enemy5_x = 200;
+         enemy5_y = 200;
+         enemy5_v = 0;
      }
   }
   
@@ -347,35 +384,40 @@ void loop() {
   {
     if(enemy1_y < playery + 17 && playery < enemy1_y + 10)
     {
-      //he ded  
+      start = false;
+      sound.noTone();  
     }
   }
   if(enemy2_x < playerx + 17 && playerx < enemy2_x + 10)
   {
     if(enemy2_y < playery + 17 && playery < enemy2_y + 10)
     {
-      //he ded  
+      start = false;
+      sound.noTone();  
     }
   }
   if(enemy3_x < playerx + 17 && playerx < enemy3_x + 10)
   {
     if(enemy3_y < playery + 17 && playery < enemy3_y + 10)
     {
-      //he ded  
+      start = false;
+      sound.noTone();  
     }
   }
   if(enemy4_x < playerx + 17 && playerx < enemy4_x + 10)
   {
     if(enemy4_y < playery + 17 && playery < enemy4_y + 10)
     {
-      //he ded  
+      start = false;
+      sound.noTone(); 
     }
   }
   if(enemy5_x < playerx + 17 && playerx < enemy5_x + 10)
   {
     if(enemy5_y < playery + 17 && playery < enemy5_y + 10)
     {
-      //he ded  
+      start = false;
+      sound.noTone(); 
     }
   }
   
@@ -525,14 +567,20 @@ void loop() {
 boolean titleScreen()
 {
   ab.clear();
-  ab.setCursor(16,22);
+  ab.setCursor(19,22);
   ab.setTextSize(2);
   ab.print("GALAGA?");
   ab.setTextSize(1);
   if(score!=0)
   {
-      ab.setCursor(50,20);
-      ab.print("Last Score: ",score);
+      ab.setCursor(18,10);
+      ab.print("Kill Count: ");
+      ab.print(score);
+      ab.display();
+      //Wait for All Buttons to be released
+      do {
+        delay(1500);
+      } while (ab.buttonsState() );
   }
   ab.display();
   if (pollFireButton(25))
